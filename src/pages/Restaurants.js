@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {SafeAreaView, View, Text, FlatList} from 'react-native';
-
+import {useDispatch} from 'react-redux';
 import {RestaurantItem} from '../components';
 
 const Restaurants = () => {
     const [list, setList] = useState([]);
+    const dispatch = useDispatch();
 
     const fetchData= () => {
         axios.get("https://opentable.herokuapp.com/api/restaurants",
@@ -14,14 +15,25 @@ const Restaurants = () => {
                 "state":"IL"
             }
         }
-        ).then(response => setList(response.data.restaurants))
+        ).then(response => setList(response.data.restaurants)).catch(error => console.log(error))
     }
 
     useEffect(()=>{
         fetchData()
     },[]);
 
-    const renderList = ({item}) => <RestaurantItem item={item}/>
+
+    const renderList = ({item}) => {
+        return(
+            <RestaurantItem
+                item={item}
+                onAddFavorite={()=> dispatch({type: "ADD_TO_FAVORITE", payload: {selectedRestaurant: item}})}
+            />
+        )
+    }
+    
+    
+    
 
     return(
         <SafeAreaView style={{flex: 1}}>

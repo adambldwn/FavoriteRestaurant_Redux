@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-const RestaurantItem = ({item}) => {
+const RestaurantItem = ({item, onAddFavorite}) => {
     return(
         
-            <View style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={onAddFavorite} >
                 <Text style={styles.text}>{item.name}</Text>
-            </View>
+            </TouchableOpacity>
         
     )
 }
