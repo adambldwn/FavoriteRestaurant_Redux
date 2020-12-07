@@ -7,24 +7,15 @@ import {RestaurantItem} from '../components';
 const Restaurants = () => {
     const [list, setList] = useState([]);
 
-    // const fetchData= () => {
-    //     axios.post(
-    //         "https://worldwide-restaurants.p.rapidapi.com/search",
-    //         {
-    //             limit: '30',
-    //             language: 'en_US',
-    //             location_id: '297704',
-    //             currency: 'USD'
-    //         },
-    //         {
-    //             headers: {
-    //                 'content-type': 'application/json',
-    //                 'x-rapidapi-key': 'da03f4ac24mshfdc5ea129989060p111edajsn4cecb5b0d860',  
-    //                 'x-rapidapi-host': 'worldwide-restaurants.p.rapidapi.com'
-    //               }
-    //         }
-    //     ).then(response => setList(response.data.results.data))
-    // }
+    const fetchData= () => {
+        axios.get("https://opentable.herokuapp.com/api/restaurants",
+        {
+            params: {
+                "state":"IL"
+            }
+        }
+        ).then(response => setList(response.data.restaurants))
+    }
 
     useEffect(()=>{
         fetchData()
@@ -33,13 +24,14 @@ const Restaurants = () => {
     const renderList = ({item}) => <RestaurantItem item={item}/>
 
     return(
-        <SafeAreaView>
-            <View>
+        <SafeAreaView style={{flex: 1}}>
+            <View style={{flex: 1}}>
                 <Text style={{fontSize: 25, textAlign:'center', fontWeight: 'bold'}}>Restaurants</Text>
                 <FlatList
                     keyExtractor={(_,index) => index.toString()}
                     data={list}
                     renderItem={renderList}
+                    ItemSeparatorComponent={() => <View style={{borderWidth:0.5,borderColor:'gray'}}/>}
                 />
             </View>
         </SafeAreaView>
