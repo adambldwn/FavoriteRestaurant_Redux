@@ -1,1 +1,0 @@
-# RN-REDUX-FavoriteRestaurant App

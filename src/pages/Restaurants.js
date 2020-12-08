@@ -22,7 +22,6 @@ const Restaurants = () => {
         fetchData()
     },[]);
 
-
     const renderList = ({item}) => {
         return(
             <RestaurantItem
@@ -31,9 +30,6 @@ const Restaurants = () => {
             />
         )
     }
-    
-    
-    
 
     return(
         <SafeAreaView style={{flex: 1}}>
